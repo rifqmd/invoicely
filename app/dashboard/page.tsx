@@ -1,4 +1,3 @@
-import SubmitButton from "../components/SubmitButtons";
 import { signOut } from "../utils/auth";
 import { requireUser } from "../utils/hooks";
 
@@ -14,7 +13,7 @@ export default async function DashboardRoute() {
           await signOut();
         }}
       >
-        <SubmitButton />
+        <button type="submit">Sign out</button>
       </form>
     </div>
   );
