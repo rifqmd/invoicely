@@ -1,8 +1,6 @@
 # Invoicely (Buat, Kelola, dan Kirim Faktor dalam Hitungan Detik)
 
-Kelola penagihan Kamu dengan mudah bersama Invoicely! Aplikasi pembuat faktur yang dirancang khusus untuk UKM, freelancer, dan entrepreneur Indonesia agar terlihat profesional dan dibayar lebih cepat.
-
-- Bayar lebih cepat, kerja lebih cerdas.
+Kelola penagihan Kamu dengan mudah bersama Invoicely! Aplikasi pembuat faktur yang dirancang khusus untuk UKM, freelancer, dan entrepreneur Indonesia agar terlihat profesional dan dibayar lebih cepat. Bayar lebih cepat, kerja lebih cerdas.
 
 ## ✨ Fitur Utama
 
@@ -88,7 +86,7 @@ Kontribusi selalu diterima! Silakan lakukan:
 
 1. Fork project ini
 2. Buat branch untuk fitur kamu (`git checkout -b feature/AmazingFeature`)
-3. Commit perubahan kamu (`git commit -m 'Add some AmazingFeature'`)
+3. Commit perubahan kamu (`git commit -m 'feat: some AmazingFeature'`)
 4. Push ke branch (`git push origin feature/AmazingFeature`)
 5. Buat Pull Request
 
