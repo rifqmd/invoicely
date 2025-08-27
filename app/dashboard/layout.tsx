@@ -3,6 +3,7 @@ import { requireUser } from "../utils/hooks";
 import Link from "next/link";
 import Logo from "@/public/logo.png";
 import Image from "next/image";
+import DashboardLinks from "../components/DashboardLinks";
 
 export default async function DashboardLayout({
   children,
@@ -24,6 +25,12 @@ export default async function DashboardLayout({
                   Invoice<span className="text-[#ffd600]">ly</span>
                 </p>
               </Link>
+            </div>
+
+            <div className="flex-1">
+              <nav className="grid items-start px-2 text-sm font-medium">
+                <DashboardLinks />
+              </nav>
             </div>
           </div>
         </div>
