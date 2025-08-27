@@ -4,6 +4,18 @@ import Link from "next/link";
 import Logo from "@/public/logo.png";
 import Image from "next/image";
 import DashboardLinks from "../components/DashboardLinks";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Menu, User2 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import { signOut } from "../utils/auth";
 
 export default async function DashboardLayout({
   children,
@@ -33,6 +45,58 @@ export default async function DashboardLayout({
               </nav>
             </div>
           </div>
+        </div>
+
+        <div className="flex flex-col">
+          <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon" className="md:hidden">
+                  <Menu className="size-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[250px] md:w-[300px]">
+                <nav className="grid gap-2 mt-10">
+                  <DashboardLinks></DashboardLinks>
+                </nav>
+              </SheetContent>
+            </Sheet>
+
+            <div className="flex items-center ml-auto">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    className="rounded-full"
+                    variant="outline"
+                    size="icon"
+                  >
+                    <User2 />
+                  </Button>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="#">Settings</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <form
+                      className="w-full"
+                      action={async () => {
+                        "use server";
+
+                        await signOut();
+                      }}
+                    >
+                      <button className="w-full text-left">Log out</button>
+                    </form>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </header>
         </div>
       </div>
     </>
