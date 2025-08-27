@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Invoicely (Buat, Kelola, dan Kirim Faktor dalam Hitungan Detik)
 
-## Getting Started
+Kelola penagihan Kamu dengan mudah bersama Invoicely! Aplikasi pembuat faktur yang dirancang khusus untuk UKM, freelancer, dan entrepreneur Indonesia agar terlihat profesional dan dibayar lebih cepat.
 
-First, run the development server:
+- Bayar lebih cepat, kerja lebih cerdas.
+
+## ✨ Fitur Utama
+
+- 🚀 Pembuatan faktur profesional dengan template customizable
+- 👥 Manajemen klien dan produk terintegrasi
+- 📊 Dashboard analitik untuk melacak pendapatan dan invoice tertunda
+- 🔐 Autentikasi aman dengan NextAuth.js
+- 💾 Penyimpanan data dengan PostgreSQL (Neon)
+- ✉️ Integrasi email dengan Mailtrap untuk pengiriman invoice
+- 🎨 UI modern dengan Tailwind CSS dan shadcn/ui
+- 📱 Responsif untuk semua perangkat
+
+## 🛠️ Teknologi yang Digunakan
+
+- **Framework:** Next.js 15.5.0 (App Router)
+- **Database:** PostgreSQL dengan [Neon](https://neon.tech/)
+- **ORM:** Prisma
+- **Styling:** Tailwind CSS
+- **UI Components:** shadcn/ui
+- **Authentication:** Auth.js (NextAuth)
+- **Email Service:** Mailtrap
+- **Development:** TypeScript
+
+## 📦 Instalasi
+
+1. Clone repositori ini:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/rifqmd/invoicely.git
+cd invoicely
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm install --save-dev # Opsional untuk development
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Setup environment variables:
+   Buat file `.env` di root directory dan tambahkan konfigurasi berikut:
 
-## Learn More
+```env
+# Database
+DATABASE_URL="your_neon_database_url"
 
-To learn more about Next.js, take a look at the following resources:
+# NextAuth
+NEXTAUTH_SECRET="your_nextauth_secret"
+NEXTAUTH_URL="http://localhost:3000"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Email (Mailtrap)
+SMTP_HOST="sandbox.smtp.mailtrap.io"
+SMTP_PORT=2525
+SMTP_USER="your_mailtrap_user"
+SMTP_PASSWORD="your_mailtrap_password"
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Lainnya
+RESEND_API_KEY="your_resend_api_key" # Opsional untuk production
+```
 
-## Deploy on Vercel
+4. Setup database:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx prisma generate
+npx prisma db push
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. Jalankan aplikasi:
+
+```bash
+npm run dev]
+```
+
+Buka [http://localhost:3000](http://localhost:3000) di browser kamu untuk melihat hasilnya.
+
+## 📧 Konfigurasi Email
+
+Invoicely menggunakan Mailtrap untuk pengiriman email di lingkungan development. Untuk production, kamu dapat mengganti dengan service email seperti Resend, SendGrid, atau lainnya.
+
+## 🤝 Berkontribusi
+
+Kontribusi selalu diterima! Silakan lakukan:
+
+1. Fork project ini
+2. Buat branch untuk fitur kamu (`git checkout -b feature/AmazingFeature`)
+3. Commit perubahan kamu (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buat Pull Request
+
+## 📄 Lisensi
+
+Distribusi di bawah lisensi MIT. Lihat `LICENSE` untuk informasi lebih lanjut.
+
+## 💬 Dukungan
+
+Jika kamu memiliki pertanyaan atau masalah, silakan buat issue di repository ini atau hubungi melalui email: rifqidev77@gmail.com
+
+---
+
+Dibuat dengan ❤️ untuk memudahkan proses invoicing di Indonesia.
