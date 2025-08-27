@@ -8,9 +8,17 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signIn } from "../utils/auth";
+import { auth, signIn } from "../utils/auth";
+import { requireUser } from "../utils/hooks";
+import { redirect } from "next/navigation";
+import SubmitButton from "../components/SubmitButtons";
 
-export default function Login() {
+export default async function Login() {
+  const session = await auth();
+
+  if (session) {
+    redirect("/dashboard");
+  }
   return (
     <>
       <div className="flex h-screen w-full items-center justify-center px-4">
@@ -38,7 +46,7 @@ export default function Login() {
                   placeholder="Enter your email"
                 />
               </div>
-              <Button type="submit">Login</Button>
+              <SubmitButton />
             </form>
           </CardContent>
         </Card>

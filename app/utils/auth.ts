@@ -1,4 +1,4 @@
-import prisma from "@/lib/db";
+import prisma from "@/app/utils/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import Nodemailer from "next-auth/providers/nodemailer";
