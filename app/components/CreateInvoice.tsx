@@ -188,6 +188,7 @@ export default function CreateInvoice({
                   name={field.fromName.name}
                   key={field.fromName.key}
                   placeholder="Your name"
+                  defaultValue={`${firstName} ${lastName}`}
                 />
                 <p className="text-red-500 text-sm select-none">
                   {field.fromName.errors}
@@ -196,6 +197,7 @@ export default function CreateInvoice({
                   name={field.fromEmail.name}
                   key={field.fromEmail.key}
                   placeholder="Your email"
+                  defaultValue={email}
                 />
                 <p className="text-red-500 text-sm select-none">
                   {field.fromEmail.errors}
@@ -204,6 +206,7 @@ export default function CreateInvoice({
                   name={field.fromAddress.name}
                   key={field.fromAddress.key}
                   placeholder="Your address"
+                  defaultValue={address}
                 />
                 <p className="text-red-500 text-sm select-none">
                   {field.fromAddress.errors}
