@@ -31,8 +31,6 @@ export async function onboardUser(prevState: unknown, formData: FormData) {
     },
   });
 
-  console.log(data);
-
   return redirect("/dashboard");
 }
 
@@ -69,8 +67,6 @@ export async function createInvoice(prevState: unknown, formData: FormData) {
       userId: session.user?.id,
     },
   });
-
-  console.log(data);
 
   const sender = {
     // email: data.fromEmail,

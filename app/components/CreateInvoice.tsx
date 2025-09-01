@@ -29,7 +29,19 @@ import { parseWithZod } from "@conform-to/zod";
 import { invoiceSchema } from "../utils/zodSchemas";
 import { formatCurrency } from "../utils/formatCurrency";
 
-export default function CreateInvoice() {
+interface iAppProps {
+  firstName: string;
+  lastName: string;
+  address: string;
+  email: string;
+}
+
+export default function CreateInvoice({
+  firstName,
+  lastName,
+  address,
+  email,
+}: iAppProps) {
   const [lastResult, action] = useActionState(createInvoice, undefined);
   const [form, field] = useForm({
     lastResult,
