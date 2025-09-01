@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,9 +15,12 @@ import {
   Trash2,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
-export default function InvoiceAction() {
+interface iAppProps {
+  id: string;
+}
+
+export default function InvoiceAction({ id }: iAppProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,7 +31,7 @@ export default function InvoiceAction() {
 
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link href="">
+          <Link href={`/dashboard/invoices/${id}`}>
             <Pencil className="size-4 mr-2" /> Edit Invoice
           </Link>
         </DropdownMenuItem>
