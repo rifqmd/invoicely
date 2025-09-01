@@ -27,6 +27,7 @@ import { createInvoice } from "../action";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { invoiceSchema } from "../utils/zodSchemas";
+import { formatCurrency } from "../utils/formatCurrency";
 
 export default function CreateInvoice() {
   const [lastResult, action] = useActionState(createInvoice, undefined);
@@ -47,18 +48,9 @@ export default function CreateInvoice() {
   const [rate, setRate] = useState("");
   const [currency, setCurrency] = useState("IDR");
   const [quantity, setQuantity] = useState("");
+  // kurs currency
   const EXCHANGE_RATE = 0;
-
-  // const calculatedTotal = Number(rate) * Number(quantity);
   const calculatedTotal = (Number(quantity) || 0) * (Number(rate) || 0);
-
-  const formatCurrency = (amount: number, currency: string) => {
-    const locale = currency === "IDR" ? "id-ID" : "en-US";
-    return new Intl.NumberFormat(locale, {
-      style: "currency",
-      currency,
-    }).format(amount);
-  };
 
   return (
     <Card className="w-full max-w-6xl mx-auto mb-6">
@@ -113,17 +105,35 @@ export default function CreateInvoice() {
                     <InfoIcon className="size-4 text-muted-foreground cursor-pointer" />
                   </PopoverTrigger>
                   <PopoverContent>
-                    <p>1 USD = {formatCurrency(EXCHANGE_RATE, "IDR")}</p>
-                    <p>1 IDR = {formatCurrency(1 / EXCHANGE_RATE, "USD")}</p>
+                    <p>
+                      1 USD ={" "}
+                      {formatCurrency({
+                        amount: EXCHANGE_RATE,
+                        currency: "IDR",
+                      })}
+                    </p>
+                    <p>
+                      1 IDR ={" "}
+                      {formatCurrency({
+                        amount: 1 / EXCHANGE_RATE,
+                        currency: "USD",
+                      })}
+                    </p>
                     {currency === "IDR" ? (
                       <p>
                         Total in USD:{" "}
-                        {formatCurrency(calculatedTotal / EXCHANGE_RATE, "USD")}
+                        {formatCurrency({
+                          amount: calculatedTotal / EXCHANGE_RATE,
+                          currency: "USD",
+                        })}
                       </p>
                     ) : (
                       <p>
                         Total in IDR:{" "}
-                        {formatCurrency(calculatedTotal * EXCHANGE_RATE, "IDR")}
+                        {formatCurrency({
+                          amount: calculatedTotal * EXCHANGE_RATE,
+                          currency: "IDR",
+                        })}
                       </p>
                     )}
                   </PopoverContent>
@@ -320,7 +330,10 @@ export default function CreateInvoice() {
               </div>
               <div className="col-span-2">
                 <Input
-                  value={formatCurrency(calculatedTotal, currency)}
+                  value={formatCurrency({
+                    amount: calculatedTotal,
+                    currency: currency as "IDR" | "USD",
+                  })}
                   type="text"
                   placeholder="0"
                   disabled
@@ -333,12 +346,20 @@ export default function CreateInvoice() {
             <div className="w-1/3">
               <div className="flex justify-between mb-2 py-2">
                 <span>Subtotal</span>
-                <span>{formatCurrency(calculatedTotal, currency)}</span>
+                <span>
+                  {formatCurrency({
+                    amount: calculatedTotal,
+                    currency: currency as "IDR" | "USD",
+                  })}
+                </span>
               </div>
               <div className="flex justify-between py-2 border-t">
-                <span>Total:</span>
+                <span>Total ({currency})</span>
                 <span className="font-medium underline">
-                  {formatCurrency(calculatedTotal, currency)}
+                  {formatCurrency({
+                    amount: calculatedTotal,
+                    currency: currency as "IDR" | "USD",
+                  })}
                 </span>
               </div>
             </div>
