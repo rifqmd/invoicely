@@ -6,7 +6,7 @@ import { invoiceSchema, onboardingSchema } from "./utils/zodSchemas";
 import prisma from "./utils/db";
 import { redirect } from "next/navigation";
 
-export async function onboardUser(prevState: unknown, formData: FormData) {
+export async function onboardUser(prevState: any, formData: FormData) {
   const session = await requireUser();
 
   const submission = parseWithZod(formData, {
@@ -31,7 +31,7 @@ export async function onboardUser(prevState: unknown, formData: FormData) {
   return redirect("/dashboard");
 }
 
-export async function createInvoice(prevState: unknown, formData: FormData) {
+export async function createInvoice(prevState: any, formData: FormData) {
   const session = await requireUser();
 
   const submission = parseWithZod(formData, {
@@ -61,6 +61,9 @@ export async function createInvoice(prevState: unknown, formData: FormData) {
       note: submission.value.note,
       status: submission.value.status,
       total: submission.value.total,
+      userId: session.user?.id,
     },
   });
+
+  return redirect("/dashboard/invoices");
 }

@@ -62,6 +62,12 @@ export default function CreateInvoice() {
             value={selectDate.toISOString()}
           />
 
+          <input
+            type="hidden"
+            name={field.total.name}
+            value={calculatedTotal}
+          />
+
           <div className="flex flex-col gap-1 w-fit">
             <div className="flex items-center gap-4">
               <Badge variant="secondary">Draft</Badge>
