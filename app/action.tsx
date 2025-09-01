@@ -105,7 +105,7 @@ export async function createInvoice(prevState: unknown, formData: FormData) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         currency: submission.value.currency as any,
       }),
-      invoiceLink: `http://localhost:3000/api/invoice/${data.id}`,
+      invoiceLink: process.env.NEXTAPI_URL + `/invoice/${data.id}`,
     },
   });
 

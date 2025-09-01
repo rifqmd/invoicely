@@ -44,21 +44,22 @@ npm install --save-dev # Opsional untuk development
    Buat file `.env` di root directory dan tambahkan konfigurasi berikut:
 
 ```env
-# Database
-DATABASE_URL="your_neon_database_url"
+# --- NextAuth ---
+AUTH_SECRET="your_token"
+NEXTAPI_URL='http://localhost:3000/api'
+NEXT_URL='http://localhost:3000'
 
-# NextAuth
-NEXTAUTH_SECRET="your_nextauth_secret"
-NEXTAUTH_URL="http://localhost:3000"
+# --- Email (mailtrap) ---
+EMAIL_SERVER_USER=smtp@mail.com #example
+EMAIL_SERVER_PASSWORD=your_token
+EMAIL_SERVER_HOST=live.smtp.mail.com #example
+EMAIL_SERVER_PORT=587
+EMAIL_FROM=mail@mail.com
+MAILTRAP_TOKEN=your_token
 
-# Email (Mailtrap)
-SMTP_HOST="sandbox.smtp.mailtrap.io"
-SMTP_PORT=2525
-SMTP_USER="your_mailtrap_user"
-SMTP_PASSWORD="your_mailtrap_password"
+# --- Database ---
+DATABASE_URL=your_database_url
 
-# Lainnya
-RESEND_API_KEY="your_resend_api_key" # Opsional untuk production
 ```
 
 4. Setup database:
