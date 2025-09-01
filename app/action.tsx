@@ -6,6 +6,7 @@ import { invoiceSchema, onboardingSchema } from "./utils/zodSchemas";
 import prisma from "./utils/db";
 import { redirect } from "next/navigation";
 import { emailClient } from "./utils/mailtrap";
+import { formatCurrency } from "./utils/formatCurrency";
 // import { emailClient } from "./utils/mailtrap";
 
 export async function onboardUser(prevState: unknown, formData: FormData) {
@@ -88,8 +89,28 @@ export async function createInvoice(prevState: unknown, formData: FormData) {
       },
     ],
     subject: `New Invoice ${data.invoiceNumber} from ${data.fromName} for you.`,
-    text: `Hello ${data.clientName},\n\nYou have a new invoice (${data.invoiceNumber}) from ${data.fromName}. The total amount is ${data.total} ${data.currency}.\n\nThank you.`,
-    category: "Invoice",
+    // category: "Invoice",
+    template_uuid: "36f76868-51a9-4b35-bbd4-ef5c1926d327",
+    template_variables: {
+      invoiceName: submission.value.invoiceName,
+      invoiceNumber: submission.value.invoiceNumber,
+      date: submission.value.date,
+      clientName: submission.value.clientName,
+      clientAddress: submission.value.clientAddress,
+      clientEmail: submission.value.clientEmail,
+      fromName: submission.value.fromName,
+      fromAddress: submission.value.fromAddress,
+      fromEmail: submission.value.fromEmail,
+      dueDate: new Intl.DateTimeFormat("en-US", {
+        dateStyle: "long",
+      }).format(new Date(submission.value.dueDate)),
+      invoiceAmount: formatCurrency({
+        amount: submission.value.total,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        currency: submission.value.currency as any,
+      }),
+      invoiceLink: `http://localhost:3000/api/invoice/${data.id}`,
+    },
   });
 
   return redirect("/dashboard/invoices");
