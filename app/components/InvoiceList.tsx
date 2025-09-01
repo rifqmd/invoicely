@@ -54,13 +54,13 @@ export default async function InvoiceList() {
         <TableBody>
           {data.map((invoice) => (
             <TableRow key={invoice.id}>
-              <TableCell>#{invoice.id}</TableCell>
+              <TableCell>#{invoice.invoiceNumber}</TableCell>
               <TableCell>{invoice.clientName}</TableCell>
               <TableCell>
                 {formatCurrency({
                   amount: invoice.total,
                   // currency: invoice.invoiceNumber.startsWith("IDR") ? "IDR" : "USD",
-                  currency: invoice.currency as any,
+                  currency: invoice.currency as "IDR" | "USD",
                 })}
               </TableCell>
               <TableCell>

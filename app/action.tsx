@@ -5,8 +5,10 @@ import { parseWithZod } from "@conform-to/zod";
 import { invoiceSchema, onboardingSchema } from "./utils/zodSchemas";
 import prisma from "./utils/db";
 import { redirect } from "next/navigation";
+import { emailClient } from "./utils/mailtrap";
+// import { emailClient } from "./utils/mailtrap";
 
-export async function onboardUser(prevState: any, formData: FormData) {
+export async function onboardUser(prevState: unknown, formData: FormData) {
   const session = await requireUser();
 
   const submission = parseWithZod(formData, {
@@ -28,10 +30,12 @@ export async function onboardUser(prevState: any, formData: FormData) {
     },
   });
 
+  console.log(data);
+
   return redirect("/dashboard");
 }
 
-export async function createInvoice(prevState: any, formData: FormData) {
+export async function createInvoice(prevState: unknown, formData: FormData) {
   const session = await requireUser();
 
   const submission = parseWithZod(formData, {
@@ -63,6 +67,29 @@ export async function createInvoice(prevState: any, formData: FormData) {
       total: submission.value.total,
       userId: session.user?.id,
     },
+  });
+
+  console.log(data);
+
+  const sender = {
+    // email: data.fromEmail,
+    // name: data.fromName,
+    email: "hello@demomailtrap.co",
+    name: "Rfq Dev",
+  };
+
+  emailClient.send({
+    from: sender,
+    to: [
+      {
+        email: submission.value.clientEmail,
+        // email: "rifqidev77@gmail.com",
+        name: submission.value.clientName,
+      },
+    ],
+    subject: `New Invoice ${data.invoiceNumber} from ${data.fromName} for you.`,
+    text: `Hello ${data.clientName},\n\nYou have a new invoice (${data.invoiceNumber}) from ${data.fromName}. The total amount is ${data.total} ${data.currency}.\n\nThank you.`,
+    category: "Invoice",
   });
 
   return redirect("/dashboard/invoices");
