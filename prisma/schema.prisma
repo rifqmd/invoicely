@@ -86,7 +86,7 @@ model Invoice {
 
   invoiceName String
   total Int
-  status InvoiceStatus @default(DRAFT)
+  status InvoiceStatus @default(PENDING)
   date DateTime
   dueDate Int
   fromName String
@@ -98,7 +98,6 @@ model Invoice {
   currency String
   invoiceNumber String
   note String?
-
   invoiceItemDescription String
   invoiceItemQuantity Int
   invoiceItemRate Int

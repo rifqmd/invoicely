@@ -56,7 +56,7 @@ export default function Onboarding() {
                     defaultValue={field.firstName.initialValue}
                     placeholder="Enter your first name"
                   />
-                  <p className="text-sm text-red-500">
+                  <p className="text-sm text-red-500 select-none">
                     {field.firstName.errors}
                   </p>
                 </div>
@@ -68,7 +68,7 @@ export default function Onboarding() {
                     defaultValue={field.lastName.initialValue}
                     placeholder="Enter your last name"
                   />
-                  <p className="text-sm text-red-500">
+                  <p className="text-sm text-red-500 select-none">
                     {field.lastName.errors}
                   </p>
                 </div>
@@ -82,7 +82,9 @@ export default function Onboarding() {
                   defaultValue={field.address.initialValue}
                   placeholder="Enter your address"
                 />
-                <p className="text-sm text-red-500">{field.address.errors}</p>
+                <p className="text-sm text-red-500 select-none">
+                  {field.address.errors}
+                </p>
               </div>
 
               <SubmitButton text="Finish onboarding" />
