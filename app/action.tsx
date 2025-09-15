@@ -122,7 +122,7 @@ export async function editInvoice(prevState: any, formData: FormData) {
     return submission.reply();
   }
 
-  const data = await prisma.invoice.updateMany({
+  await prisma.invoice.updateMany({
     where: {
       id: formData.get("id") as string,
       userId: session.user?.id,
@@ -183,6 +183,16 @@ export async function editInvoice(prevState: any, formData: FormData) {
       }),
       invoiceLink: process.env.NEXTAPI_URL + `/invoice/${formData.get("id")}`,
     },
+  });
+
+  return redirect("/dashboard/invoices");
+}
+
+export async function DeleteInvoice(invoiceId: string) {
+  const session = await requireUser();
+
+  await prisma.invoice.deleteMany({
+    where: { userId: session.user?.id, id: invoiceId },
   });
 
   return redirect("/dashboard/invoices");
