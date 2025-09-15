@@ -23,7 +23,7 @@ type Params = Promise<{ invoiceId: string }>;
 export default async function EditInvoiceRoute({ params }: { params: Params }) {
   const { invoiceId } = await params;
   const session = await requireUser();
-
   const data = await getData(invoiceId, session.user?.id as string);
-  return <EditInvoice />;
+
+  return <EditInvoice data={data} />;
 }

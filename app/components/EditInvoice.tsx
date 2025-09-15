@@ -26,10 +26,15 @@ import { useActionState, useState } from "react";
 import { useForm } from "@conform-to/react";
 import { invoiceSchema } from "../utils/zodSchemas";
 import { parseWithZod } from "@conform-to/zod";
-import { createInvoice } from "../action";
+import { editInvoice } from "../action";
+import type { Prisma } from "@/lib/generated/prisma";
 
-export function EditInvoice() {
-  const [lastResult, action] = useActionState(createInvoice, undefined);
+interface iAppProps {
+  data: Prisma.InvoiceGetPayload<object>;
+}
+
+export function EditInvoice({ data }: iAppProps) {
+  const [lastResult, action] = useActionState(editInvoice, undefined);
   const [form, field] = useForm({
     lastResult,
 
@@ -42,10 +47,10 @@ export function EditInvoice() {
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
-  const [selectDate, setSelectDate] = useState(new Date());
-  const [rate, setRate] = useState("");
-  const [currency, setCurrency] = useState("IDR");
-  const [quantity, setQuantity] = useState("");
+  const [selectDate, setSelectDate] = useState(data.date);
+  const [rate, setRate] = useState(data.invoiceItemRate.toString());
+  const [currency, setCurrency] = useState(data.currency);
+  const [quantity, setQuantity] = useState(data.invoiceItemQuantity.toString());
   // kurs currency
   const EXCHANGE_RATE = 0;
   const calculatedTotal = (Number(quantity) || 0) * (Number(rate) || 0);
@@ -71,7 +76,7 @@ export function EditInvoice() {
               <Input
                 name={field.invoiceName.name}
                 key={field.invoiceName.key}
-                defaultValue={field.invoiceName.initialValue}
+                defaultValue={data.invoiceName}
                 placeholder="Invoice title"
               />
             </div>
@@ -90,7 +95,7 @@ export function EditInvoice() {
                 <Input
                   name={field.invoiceNumber.name}
                   key={field.invoiceNumber.key}
-                  defaultValue={field.invoiceNumber.initialValue}
+                  defaultValue={data.invoiceNumber}
                   className="rounded-l-none"
                   placeholder="0"
                 />
@@ -173,7 +178,7 @@ export function EditInvoice() {
                   name={field.fromName.name}
                   key={field.fromName.key}
                   placeholder="Your name"
-                  // defaultValue={`${firstName} ${lastName}`}
+                  defaultValue={data.fromName}
                 />
                 <p className="text-red-500 text-sm select-none">
                   {field.fromName.errors}
@@ -182,7 +187,7 @@ export function EditInvoice() {
                   name={field.fromEmail.name}
                   key={field.fromEmail.key}
                   placeholder="Your email"
-                  // defaultValue={email}
+                  defaultValue={data.fromEmail}
                 />
                 <p className="text-red-500 text-sm select-none">
                   {field.fromEmail.errors}
@@ -191,7 +196,7 @@ export function EditInvoice() {
                   name={field.fromAddress.name}
                   key={field.fromAddress.key}
                   placeholder="Your address"
-                  // defaultValue={address}
+                  defaultValue={data.fromAddress}
                 />
                 <p className="text-red-500 text-sm select-none">
                   {field.fromAddress.errors}
@@ -205,7 +210,7 @@ export function EditInvoice() {
                 <Input
                   name={field.clientName.name}
                   key={field.clientName.key}
-                  defaultValue={field.clientName.initialValue}
+                  defaultValue={data.clientName}
                   placeholder="Client name"
                 />
                 <p className="text-red-500 text-sm select-none">
@@ -214,7 +219,7 @@ export function EditInvoice() {
                 <Input
                   name={field.clientEmail.name}
                   key={field.clientEmail.key}
-                  defaultValue={field.clientEmail.initialValue}
+                  defaultValue={data.clientEmail}
                   placeholder="Client email"
                 />
                 <p className="text-red-500 text-sm select-none">
@@ -223,7 +228,7 @@ export function EditInvoice() {
                 <Input
                   name={field.clientAddress.name}
                   key={field.clientAddress.key}
-                  defaultValue={field.clientAddress.initialValue}
+                  defaultValue={data.clientAddress}
                   placeholder="Client address"
                 />
                 <p className="text-red-500 text-sm select-none">
@@ -271,7 +276,7 @@ export function EditInvoice() {
               <Select
                 name={field.dueDate.name}
                 key={field.dueDate.key}
-                defaultValue={field.dueDate.initialValue}
+                defaultValue={data.dueDate.toString()}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select due date" />
@@ -301,7 +306,7 @@ export function EditInvoice() {
                 <Textarea
                   name={field.invoiceItemDescription.name}
                   key={field.invoiceItemDescription.key}
-                  defaultValue={field.invoiceItemDescription.initialValue}
+                  defaultValue={data.invoiceItemDescription}
                   placeholder="items name & description"
                 />
                 <p className="text-red-500 text-sm select-none">
@@ -376,7 +381,7 @@ export function EditInvoice() {
             <Textarea
               name={field.note.name}
               key={field.note.key}
-              defaultValue={field.note.initialValue}
+              defaultValue={data.note ?? undefined}
               placeholder="Add your note here..."
             />
             <p className="text-red-500 text-sm select-none">

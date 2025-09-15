@@ -102,10 +102,49 @@ export async function createInvoice(prevState: unknown, formData: FormData) {
       }).format(new Date(submission.value.dueDate)),
       invoiceAmount: formatCurrency({
         amount: submission.value.total,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         currency: submission.value.currency as any,
       }),
       invoiceLink: process.env.NEXTAPI_URL + `/invoice/${data.id}`,
+    },
+  });
+
+  return redirect("/dashboard/invoices");
+}
+
+export async function editInvoice(prevState: any, formData: FormData) {
+  const session = await requireUser();
+
+  const submission = parseWithZod(formData, {
+    schema: invoiceSchema,
+  });
+
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+
+  const data = await prisma.invoice.updateMany({
+    where: {
+      id: formData.get("id") as string,
+      userId: session.user?.id,
+    },
+    data: {
+      clientAddress: submission.value.clientAddress,
+      clientEmail: submission.value.clientEmail,
+      clientName: submission.value.clientName,
+      currency: submission.value.currency,
+      date: submission.value.date,
+      dueDate: submission.value.dueDate,
+      fromAddress: submission.value.fromAddress,
+      fromEmail: submission.value.fromEmail,
+      fromName: submission.value.fromName,
+      invoiceItemDescription: submission.value.invoiceItemDescription,
+      invoiceItemQuantity: submission.value.invoiceItemQuantity,
+      invoiceItemRate: submission.value.invoiceItemRate,
+      invoiceNumber: submission.value.invoiceNumber,
+      invoiceName: submission.value.invoiceName,
+      note: submission.value.note,
+      status: submission.value.status,
+      total: submission.value.total,
     },
   });
 
