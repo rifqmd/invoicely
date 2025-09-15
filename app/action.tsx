@@ -148,5 +148,42 @@ export async function editInvoice(prevState: any, formData: FormData) {
     },
   });
 
+  const sender = {
+    email: "hello@demomailtrap.co",
+    name: "Rfq Dev",
+  };
+
+  emailClient.send({
+    from: sender,
+    to: [
+      // {
+      //   email: submission.value.clientEmail,
+      //   name: submission.value.clientName,
+      // },
+      { email: "hello@demomailtrap.co" },
+    ],
+    subject: `New Invoice ${submission.value.invoiceNumber} from ${submission.value.fromName} for you.`,
+    template_uuid: "36f76868-51a9-4b35-bbd4-ef5c1926d327", // uuid for update template
+    template_variables: {
+      invoiceName: submission.value.invoiceName,
+      invoiceNumber: submission.value.invoiceNumber,
+      date: submission.value.date,
+      clientName: submission.value.clientName,
+      clientAddress: submission.value.clientAddress,
+      clientEmail: submission.value.clientEmail,
+      fromName: submission.value.fromName,
+      fromAddress: submission.value.fromAddress,
+      fromEmail: submission.value.fromEmail,
+      dueDate: new Intl.DateTimeFormat("en-US", {
+        dateStyle: "long",
+      }).format(new Date(submission.value.dueDate)),
+      invoiceAmount: formatCurrency({
+        amount: submission.value.total,
+        currency: submission.value.currency as any,
+      }),
+      invoiceLink: process.env.NEXTAPI_URL + `/invoice/${formData.get("id")}`,
+    },
+  });
+
   return redirect("/dashboard/invoices");
 }
