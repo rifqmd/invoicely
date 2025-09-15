@@ -58,17 +58,22 @@ export function EditInvoice({ data }: iAppProps) {
     <Card className="w-full max-w-6xl mx-auto mb-6">
       <CardContent className="p-6">
         <form id={form.id} action={action} onSubmit={form.onSubmit} noValidate>
+          {/* Hidden input for date */}
           <input
             type="hidden"
             name={field.date.name}
             value={selectDate.toISOString()}
           />
 
+          {/* Hidden input for total */}
           <input
             type="hidden"
             name={field.total.name}
             value={calculatedTotal}
           />
+
+          {/* Hidden input for ID */}
+          <input type="hidden" name="id" value={data.id} />
 
           <div className="flex flex-col gap-1 w-fit">
             <div className="flex items-center gap-4">
