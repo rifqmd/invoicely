@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { auth, signIn } from "../utils/auth";
 import { redirect } from "next/navigation";
 import SubmitButton from "../components/SubmitButtons";
+import Link from "next/link";
 
 export default async function Login() {
   const session = await auth();
@@ -45,6 +46,33 @@ export default async function Login() {
                 />
               </div>
               <SubmitButton text="Login" />
+
+              <div className="flex items-center my-1">
+                <hr className="flex-grow border-t border-gray-300" />
+                <span className="mx-2 text-gray-500 text-sm">or</span>
+                <hr className="flex-grow border-t border-gray-300" />
+              </div>
+
+              <button
+                type="button"
+                className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-gray-300 rounded-md bg-white hover:bg-gray-50 transition"
+                onClick={async () => {
+                  "use server";
+                  await signIn("google");
+                }}
+              >
+                Login with Google
+              </button>
+
+              <p className="px-1 text-center text-sm text-gray-600">
+                Don{"'"}t have an account?{" "}
+                <Link
+                  href="/register"
+                  className="text-blue-600 hover:underline"
+                >
+                  Register
+                </Link>
+              </p>
             </form>
           </CardContent>
         </Card>
