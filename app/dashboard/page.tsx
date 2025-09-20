@@ -1,6 +1,6 @@
 import DashboardBlocks from "../components/DashboardBlocks";
 import InvoiceGraph from "../components/InvoiceGraph";
-import { signOut } from "../utils/auth";
+import RecentInvoices from "../components/RecentInvoices";
 import { requireUser } from "../utils/hooks";
 
 export default async function DashboardRoute() {
@@ -13,17 +13,10 @@ export default async function DashboardRoute() {
         {/* col-span-2 70% */}
         <InvoiceGraph />
 
-        <h1 className="bg-red-500 col-span-1">this is about 30%</h1>
+        {/* col-span-1 30% */}
+        <RecentInvoices />
       </div>
-
-      <form
-        action={async () => {
-          "use server";
-          await signOut();
-        }}
-      >
-        <button type="submit">Sign out</button>
-      </form>
+      =
     </>
   );
 }

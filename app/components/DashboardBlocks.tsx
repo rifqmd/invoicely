@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 import prisma from "../utils/db";
 import { requireUser } from "../utils/hooks";
+import { formatCurrency } from "../utils/formatCurrency";
 
 async function getData(userId: string) {
   const [data, openInvoices, paidInvoices] = await Promise.all([
@@ -53,12 +54,13 @@ export default async function DashboardBlocks() {
         </CardHeader>
         <CardContent>
           <h2 className="text-2xl font-bold">
-            {data
-              .reduce((acc, invoice) => acc + invoice.total, 0)
-              .toLocaleString("id-ID", { minimumFractionDigits: 0 })}
+            {formatCurrency({
+              amount: data.reduce((acc, invoice) => acc + invoice.total, 0),
+              currency: "IDR",
+            })}
           </h2>
           <p className="text-xs text-muted-foreground">
-            Based on the last 30 days
+            Based on total value of paid invoices
           </p>
         </CardContent>
       </Card>
@@ -97,7 +99,7 @@ export default async function DashboardBlocks() {
         <CardContent>
           <h2 className="text-2xl font-bold">+{openInvoices.length}</h2>
           <p className="text-xs text-muted-foreground">
-            Invoices which haven&#39;t been paid!
+            Invoices which are currently pending!
           </p>
         </CardContent>
       </Card>
