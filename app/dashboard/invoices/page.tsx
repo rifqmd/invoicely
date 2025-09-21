@@ -7,8 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { PlusIcon } from "lucide-react";
+import { LoaderIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function InvoiceRoute() {
   return (
@@ -31,7 +32,11 @@ export default function InvoiceRoute() {
         </CardHeader>
 
         <CardContent>
-          <InvoiceList />
+          <div className="flex justify-center">
+            <Suspense fallback={<LoaderIcon className="animate-spin" />}>
+              <InvoiceList />
+            </Suspense>
+          </div>
         </CardContent>
       </Card>
     </div>
