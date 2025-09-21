@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
+    "build-prod": "cp .env.prod && next build --turbopack",
+    "build-staging": "cp .env.staging && next build --turbopack",
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma generate"
