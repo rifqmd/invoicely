@@ -2,6 +2,13 @@
 
 Kelola penagihan Kamu dengan mudah bersama Invoicely! Aplikasi pembuat faktur yang dirancang khusus untuk UKM, freelancer, dan entrepreneur Indonesia agar terlihat profesional dan dibayar lebih cepat. Bayar lebih cepat, kerja lebih cerdas.
 
+<p align="center">
+   <img src="./public/Dashboard_page.png" alt="Tampilan Dashboard Invoicely" width="400" style=" box-shadow: 0 4px 24px rgba(0,0,0,0.12);" />
+</p>
+<p align="center">
+   <em>Tampilan Dashboard Invoicely!</em>
+</p>
+
 ## ✨ Fitur Utama
 
 - 🚀 Pembuatan faktur profesional dengan template customizable
