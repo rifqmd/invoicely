@@ -1,15 +1,12 @@
 {
   "name": "invoicely",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "build-prod": "cp .env.prod && next build --turbopack",
-    "build-staging": "cp .env.staging && next build --turbopack",
     "start": "next start",
-    "lint": "eslint",
-    "postinstall": "prisma generate"
+    "lint": "eslint"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
